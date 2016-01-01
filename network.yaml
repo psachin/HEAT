@@ -1,0 +1,42 @@
+heat_template_version: 2015-04-30
+
+description: Creating network infrastructure using template
+
+parameters:
+        name: 
+                type: string
+                default: test_network
+                description: name of the network
+        public_network:
+                type: string
+                label: Public network name or ID
+                description: Public network with floating IP addresses.
+                default: external_network
+resources:
+        network_resource:
+                type: OS::Neutron::Net
+                properties:
+                        name: {get_param: name}
+                        shared: True
+        network_subnet:
+                type: OS::Neutron::Subnet
+                properties: 
+                        network_id: { get_resource: network_resource }
+                        cidr: 10.10.10.0/24
+                        enable_dhcp: True
+                        name: subnet_test_network
+        network_port:
+                type: OS::Neutron::Port
+                properties:
+                        network: { get_resource: network_resource }
+        router_create:
+                type: OS::Neutron::Router
+                properties:     
+                        name: test_router
+                        external_gateway_info:
+                           network: { get_param: public_network }
+        router_interface:
+                type: OS::Neutron::RouterInterface
+                properties:
+                        router: {get_resource: router_create}
+                        subnet: {get_resource: network_subnet}
