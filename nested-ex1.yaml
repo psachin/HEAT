@@ -61,3 +61,7 @@ outputs:
         output_ip:
                 description: ip address of the instance
                 value: {get_attr: [instance_input, networks, private_network, 1]}
+
+### Procedue to run this
+
+# heat stack-create myinstance1 -f sub-instance2.yaml -e instace-environment.yaml
