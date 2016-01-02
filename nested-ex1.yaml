@@ -8,6 +8,11 @@ resources:
                 type: My::instance::server
                 properties:
                         image-input: cirros
+outputs:
+        output_name:
+                description: getting ip address of instance
+                value: {get_attr: [calling_nested, resource.instance_input, name]}
+                        
 
 ### environment file mapping resource type to nested stack file.
 ### Content of the file (instace-environment.yaml).
