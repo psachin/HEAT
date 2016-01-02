@@ -1,0 +1,33 @@
+heat_template_version: 2015-04-30
+
+description: Template to launch multiple instances
+
+parameters:
+        image-input:
+                type: string
+                description: Image which is going to be use for launching instance.
+                default: cirros
+        internal-network:
+                type: string
+                description: Internal network to assign IP to VM.
+                default: private_network
+        flavor-input:
+                type: string
+                description: Flvor which is going to be use for launching instance.
+                default: m1.tiny
+resources:
+        multipleinstances:
+                type: OS::Nova::Server
+                properties:
+                        image: {get_param: image-input}
+                        networks:
+                        - network: {get_param: internal-network}
+                        flavor: {get_param: flavor-input}
+                        name: testinstance1
+outputs:
+        output_name:
+                description: Name of the spawned instance.
+                value: {get_attr: [multipleinstances, name]}
+        output_ip:
+                description: ip address of the instance
+                value: {get_attr: [multipleinstances, networks]}
