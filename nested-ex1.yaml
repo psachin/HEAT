@@ -1,0 +1,63 @@
+### sub-instance2.yaml template which is calling a nested template.
+heat_template_version: 2015-04-30
+
+description: showing the use of nested templates by calling another template.
+
+resources:
+        calling_nested:
+                type: My::instance::server
+                properties:
+                        image-input: cirros
+
+### environment file mapping resource type to nested stack file.
+### Content of the file (instace-environment.yaml).
+
+resource_registry:
+        My::instance::server: file:///templates/instance2.yaml
+
+### instance2.yaml file which is called inside the sub-template.
+
+heat_template_version: 2015-04-30
+description: Launching instance with floating IP.
+parameters:
+        name: 
+                type: string
+                default: private_network
+                description: name of the network
+        public_network:
+                type: string
+                label: Public network name or ID
+                description: Public network with floating IP addresses.
+                default: external_network
+        image-input:
+                type: string
+                description: Image which is going to be use for launching instance.
+resources:
+        network_port:
+                type: OS::Neutron::Port
+                properties:
+                        network: { get_param: name }
+        instance_input:
+                type: OS::Nova::Server
+                properties:
+                        name: testinstance1
+                        networks:
+                        - port: {get_resource: network_port}
+                        flavor: m1.tiny 
+                        image: {get_param: image-input}
+        floating_ip:
+                type: OS::Neutron::FloatingIP
+                properties:
+                        floating_network: { get_param: public_network }
+        floating_ip_assoc:
+                type: OS::Neutron::FloatingIPAssociation
+                properties:
+                        floatingip_id: { get_resource: floating_ip }
+                        port_id: { get_resource: network_port }
+outputs:
+        output_name:
+                description: Name of the spawned instance.
+                value: {get_attr: [instance_input, name]}
+        output_ip:
+                description: ip address of the instance
+                value: {get_attr: [instance_input, networks, private_network, 1]}
