@@ -14,4 +14,3 @@ notifications:
     vaggarwa@redhat.com
 script:
   - "python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < instance.yaml"
-
