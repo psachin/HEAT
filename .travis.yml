@@ -11,4 +11,4 @@ python:
   - "nightly" # currently points to 3.7-dev
 # command to install dependencies
 # command to run tests
-script: python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < instance.yaml
+script: "python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < ./instance.yaml"
