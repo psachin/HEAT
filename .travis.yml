@@ -9,6 +9,6 @@ notifications:
   email:
     vaggarwa@redhat.com
 install:
-  - "pip install yml"
+  - "pip install pyyaml"
 script:
   - "python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < instance.yaml"
