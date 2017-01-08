@@ -5,4 +5,4 @@ python:
   - 3.5
   - "nightly"
 script:
-  - "python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < instance.yaml"
+  - "python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < https://github.com/ervikrant06/HEAT/blob/master/instance.yaml/instance.yaml"
