@@ -4,12 +4,5 @@ python:
   - 3.4
   - 3.5
   - "nightly"
-matrix:
-  allow_failures:
-    - python: 3.5
-    - python: "nightly"
-notifications:
-  email:
-    vaggarwa@redhat.com
 script:
   - "python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < instance.yaml"
