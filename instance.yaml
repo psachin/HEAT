@@ -1,6 +1,6 @@
 heat_template_version: 2015-04-30
 
-description: Template to launch multiple instances at once
+description: Template to launch multiple instances at once.
 
 parameters:
         image-input:
