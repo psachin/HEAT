@@ -1,0 +1,12 @@
+language: python
+python:
+  - 2.7
+  - 3.4
+  - 3.5
+  - "nightly"
+sudo: false
+notifications:
+  email:
+    vaggarwa@redhat.com
+script:
+  - "python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < instance.yaml"

@@ -1,8 +1,0 @@
-language: python
-python:
-  - 2.7
-  - 3.4
-  - 3.5
-  - "nightly"
-script:
-  - "python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < https://github.com/ervikrant06/HEAT/blob/master/instance.yaml/instance.yaml"
