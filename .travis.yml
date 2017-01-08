@@ -1,14 +1,20 @@
 language: python
 python:
-  - "2.6"
-  - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.5-dev" # 3.5 development branch
-  - "3.6-dev" # 3.6 development branch
-  - "nightly" # currently points to 3.7-dev
-# command to install dependencies
-# command to run tests
-script: "python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < ./instance.yaml"
+  - 2.7
+  - 3.4
+  - 3.5
+  - 3.5-dev
+  - 3.6-dev
+  - nightly
+matrix:
+  allow_failures:
+  - python: 3.6-dev
+  - python: nightly
+sudo: false
+notifications:
+  email:
+    iclcoolster@gmail.com
+install:
+  - pip install pyyaml
+script:
+  - for f in `find . -type f -iname "*.yaml"`; do python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < $f; done
