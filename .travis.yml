@@ -9,4 +9,4 @@ notifications:
   email:
     vaggarwa@redhat.com
 script:
-  - "python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < instance.yaml"
+  - "python -c 'import yml,sys;yml.safe_load(sys.stdin)' < instance.yaml"
