@@ -8,5 +8,7 @@ sudo: false
 notifications:
   email:
     vaggarwa@redhat.com
+install:
+  - "pip install yaml"
 script:
-  - "python -c 'import yml,sys;yml.safe_load(sys.stdin)' < instance.yaml"
+  - "python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < instance.yaml"
